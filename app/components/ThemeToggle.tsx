@@ -1,30 +1,40 @@
-// app/components/ThemeToggle.tsx
-"use client"; // Required for client-side rendering
+"use client"
 
-import React, { useEffect } from 'react';
+import * as React from "react"
+import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
 
-const ThemeToggle = () => {
-  const toggleTheme = () => {
-    const currentTheme = document.documentElement.classList.toggle('dark') ? 'dark' : 'light';
-    localStorage.setItem('theme', currentTheme);
-  };
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
-  useEffect(() => {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-      document.documentElement.classList.toggle('dark', savedTheme === 'dark');
-    } else {
-      // Set to system preference
-      const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      document.documentElement.classList.toggle('dark', isDarkMode);
-    }
-  }, []);
+export default function ModeToggle() {
+  const { setTheme } = useTheme()
 
   return (
-    <button onClick={toggleTheme} className="p-2">
-      Toggle Theme
-    </button>
-  );
-};
-
-export default ThemeToggle;
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="secondary" size="icon">
+          <Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Dark
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("system")}>
+          System
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}

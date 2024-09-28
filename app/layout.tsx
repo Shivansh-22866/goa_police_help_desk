@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "./components/Navbar";
+import { ThemeProvider } from "./components/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -25,12 +26,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning >
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased dark:bg-gray-900`}
       >
-        <Navbar/>
-        {children}
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar/>
+            {children}
+          </ThemeProvider>
         <script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
         <script src="https://mediafiles.botpress.cloud/ba25eea6-3827-4b7c-86f5-702d509c82e0/webchat/v2.1/config.js"></script>
       </body>
