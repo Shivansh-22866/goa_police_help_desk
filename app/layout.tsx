@@ -39,8 +39,8 @@ export default function RootLayout({
             <Navbar/>
             {children}
           </ThemeProvider>
-        <script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
-        <script src="https://mediafiles.botpress.cloud/ba25eea6-3827-4b7c-86f5-702d509c82e0/webchat/v2.1/config.js"></script>
+          <script src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"></script>
+          <script src="https://mediafiles.botpress.cloud/ba25eea6-3827-4b7c-86f5-702d509c82e0/webchat/v2.1/config.js"></script>
       </body>
     </html>
   );
